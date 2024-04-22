@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">MTR Viewer</string>
+    <string name="title_home">Home</string>
+    <string name="routes">Routes</string>
+    <string name="timetable">Timetables</string>
+    <string name="connection">Connection</string>
+    <string name="fragment_connection_hostname"><b>Hostname:</b>\n%1$s</string>
+    <string name="home_tab_status_loading">Loading…</string>
+    <string name="home_tab_status_success">API data loaded.</string>
+    <string name="home_tab_status_error">API reading error.</string>
+    <string name="fragment_main_button_connect">Connect to webhost</string>
+    <string name="fragment_main_edittext_hint">Enter webserver hostname:</string>
+    <string name="fragment_station_last_updated"><b>Last updated:</b> %1$s</string>
+    <string name="fragment_station_platform">Platform %1$s</string>
+    <string name="fragment_route_list_dimension">Dimension no. %1$d</string>
+    <string name="fragment_station_loading_failed">Timetable loading failed. Try again later.</string>
+    <string name="item_no_departures_title">No upcoming departures</string>
+    <string name="item_no_departures_description">Try again or try searching for next departures at another nearby station.</string>
+    <string name="item_no_internet_title">Connection error</string>
+    <string name="item_no_internet_description">Make sure you\'re connected to internet and the server is up when you make the request and try again.</string>
+    <string name="increment_dimension_error">Can\'t increment dimension. Already at its maximum.</string>
+    <string name="decrement_dimension_error">Can\'t decrement dimension. Already at its minimum.</string>
+    <string name="popup_data_error_title">Error getting data</string>
+    <string name="popup_data_error_description">Error getting data. Details:\n</string>
+    <string name="popup_data_error_button">Close app</string>
+    <string name="fragment_timetable_select">Select an station:</string>
+    <string name="fragment_timetable_select_spinner">- SELECT -</string>
+    <string name="notconnected">- NOT CONNECTED -</string>
+    <string name="no_destination">No destination has been set.</string>
+</resources>

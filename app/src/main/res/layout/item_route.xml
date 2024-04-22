@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:id="@+id/listRouteElement"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@color/light_green_mtr"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="5dp">
+
+        <LinearLayout
+            android:id="@+id/item_route_destination_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/item_route_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="2sp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/europa_grotesk_nr2_sb"
+                android:gravity="center"
+                android:letterSpacing="-0.025"
+                android:lines="1"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="L0"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:shapeAppearanceOverlay="@style/rounded_corners" />
+
+            <LinearLayout
+                android:layout_width="336dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_route_origin"
+                    android:layout_width="336dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:autoSizeMaxTextSize="18dp"
+                    android:autoSizeMinTextSize="8dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/europa_grotesk_nr2_sb"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Origin"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/item_route_destination"
+                    android:layout_width="336dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:autoSizeMaxTextSize="18dp"
+                    android:autoSizeMinTextSize="8dp"
+                    android:autoSizeStepGranularity="1dp"
+                    android:autoSizeTextType="uniform"
+                    android:fontFamily="@font/europa_grotesk_nr2_sb"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Destination"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

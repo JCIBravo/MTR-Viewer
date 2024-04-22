@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="very_light_red_mtr">#E1ACBA</color>
+    <color name="light_red_mtr">#D56C88</color>
+    <color name="red_mtr">#B42249</color>
+    <color name="very_light_green_mtr">#4DDDB6</color>
+    <color name="light_green_mtr">#2A9377</color>
+    <color name="green_mtr">#1E533E</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

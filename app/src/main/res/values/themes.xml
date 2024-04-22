@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MTRV" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_red_mtr</item>
+        <item name="colorPrimaryVariant">@color/red_mtr</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/light_green_mtr</item>
+        <item name="colorSecondaryVariant">@color/green_mtr</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/europa_grotesk_nr2_sb</item>
+        <item name="fontFamily">@font/europa_grotesk_nr2_sb</item> <!-- target android sdk versions < 26 and > 14 if theme other than AppCompat -->
+        <item name="android:actionBarStyle">@style/MTRActionBar</item>
+    </style>
+
+    <style name="MTRActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:fontFamily">@font/europa_grotesk_nr2_sb</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="rounded_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyleEnabled">
+        <item name="android:fontFamily">@font/europa_grotesk_nr2_sb</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="BottomNavigationViewTextStyleDisabled">
+        <item name="android:fontFamily">@font/europa_grotesk_nr2_sb</item>
+    </style>
+</resources>
