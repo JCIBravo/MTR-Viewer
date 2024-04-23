@@ -25,7 +25,7 @@ import com.tomer.fadingtextview.FadingTextView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class StationInfoFragment : Fragment(), OnClickListener {
     private lateinit var binding: FragmentStationInfoBinding
@@ -194,7 +194,7 @@ class StationInfoFragment : Fragment(), OnClickListener {
                             if (destinationNames.isNotEmpty()) {
                                 inflatedView.findViewById<FadingTextView>(R.id.item_line_destination)
                                 inflatedView.findViewById<FadingTextView>(R.id.item_line_destination).setTexts(destinationNames.toTypedArray())
-                                inflatedView.findViewById<FadingTextView>(R.id.item_line_destination).setTimeout((30000 / destinationNames.size).milliseconds)
+                                inflatedView.findViewById<FadingTextView>(R.id.item_line_destination).setTimeout(3.seconds)
                             } else {
                                 inflatedView.findViewById<FadingTextView>(R.id.item_line_destination).text = requireContext().getString(R.string.no_destination)
                             }
@@ -211,7 +211,7 @@ class StationInfoFragment : Fragment(), OnClickListener {
                             inflatedView.findViewById<TextView>(R.id.item_line_platform).text = getString(R.string.fragment_station_platform, response[i].platform)
 
                             //ETA
-                            inflatedView.findViewById<TextView>(R.id.item_line_eta).text = convertMillisAndCheckTime(response[i].arrival)
+                            inflatedView.findViewById<TextView>(R.id.item_line_eta).text = convertMillisAndCheckTime(requireContext(), response[i].arrival)
                             departureListLayout.addView(inflatedView)
                         }
                     } else {

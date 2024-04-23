@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.res.Resources.NotFoundException
 import android.util.Log
 import android.widget.Toast
+import com.google.gson.Gson
 import com.jcibravo.mtr_viewer.classes.DataResponse
+import com.jcibravo.mtr_viewer.classes.MTRAddress
 import com.jcibravo.mtr_viewer.classes.RouteData
 import com.jcibravo.mtr_viewer.classes.StationData
 import java.lang.Exception
@@ -18,6 +20,16 @@ import kotlin.math.absoluteValue
  * World index
  **/
 var DIMENSION = 0
+
+/**
+ * GSON (for Json parsing)
+ */
+val gson = Gson()
+
+/**
+ * Saved hostnames
+ **/
+val savedAddresses = mutableListOf<MTRAddress>()
 
 /**
  * All data from MTR API endpoint is stored here
@@ -255,14 +267,14 @@ fun convertMillisToTime(millis: Long, includeDate: Boolean, includeSeconds: Bool
  * If time is smaller than 1 minute it returns "Now"
  * @param millis Milliseconds
  **/
-fun convertMillisAndCheckTime(millis: Long): String {
+fun convertMillisAndCheckTime(context: Context, millis: Long): String {
     val timestampNow = System.currentTimeMillis()
     val differenceInMillis = millis - timestampNow
     val differenceInMinutes = differenceInMillis / 60000
 
     return when {
-        differenceInMinutes <= 0 -> "Now"
-        differenceInMinutes <= 30 -> "$differenceInMinutes min."
+        differenceInMinutes <= 0 -> context.getString(R.string.now)
+        differenceInMinutes <= 30 -> context.getString(R.string.minutes_left, differenceInMinutes)
         else -> SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(millis))
     }
 }

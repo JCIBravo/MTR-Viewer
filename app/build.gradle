@@ -13,8 +13,8 @@ android {
         applicationId 'com.jcibravo.mtr_viewer'
         minSdk 28
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -74,4 +74,7 @@ dependencies {
 
     //FADING TEXT VIEW
     implementation 'com.github.rosenpin:fading-text-view:3.3'
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.9'
 }

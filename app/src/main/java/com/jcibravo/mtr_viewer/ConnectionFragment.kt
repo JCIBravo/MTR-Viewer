@@ -1,7 +1,6 @@
 package com.jcibravo.mtr_viewer
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -22,19 +23,28 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.processphoenix.ProcessPhoenix
 import com.jcibravo.mtr_viewer.api.RetrofitSingleton
+import com.jcibravo.mtr_viewer.classes.MTRAddress
+import com.jcibravo.mtr_viewer.ui.OnListClickListener
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStreamWriter
 
-class ConnectionFragment : Fragment() {
+class ConnectionFragment : Fragment(), OnListClickListener {
     private lateinit var navigation : BottomNavigationView
     private lateinit var loading : ProgressBar
     private lateinit var connectedDiv : LinearLayout
     private lateinit var disconnectedDiv : LinearLayout
     private lateinit var hostnameField : EditText
     private lateinit var hostnameTextView : TextView
+    private lateinit var addListButton : ImageButton
+    private lateinit var listButton : ImageButton
     private lateinit var connectToHostButton : Button
     private lateinit var reconnectToHostButton : Button
     private lateinit var disconnectHostButton : Button
     private lateinit var openURLWebButton : Button
+
+    private lateinit var listButtonAlertDialog : AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +62,8 @@ class ConnectionFragment : Fragment() {
         disconnectedDiv = view.findViewById(R.id.hostDiv)
         hostnameField = view.findViewById(R.id.hostnameEditText)
         hostnameTextView = view.findViewById(R.id.hostnameTextView)
+        addListButton = view.findViewById(R.id.addBtn)
+        listButton = view.findViewById(R.id.listBtn)
         connectToHostButton = view.findViewById(R.id.hostnameConnectBtn)
         reconnectToHostButton = view.findViewById(R.id.reloadBtn)
         disconnectHostButton = view.findViewById(R.id.disconnectBtn)
@@ -62,6 +74,66 @@ class ConnectionFragment : Fragment() {
             .addCallback(viewLifecycleOwner)
                 { /* Don't do anything. */ }
 
+        addListButton.setOnClickListener {
+            val addListDialogBuilder = AlertDialog.Builder(requireContext())
+            val inflater = requireActivity().layoutInflater
+            val dialogView = inflater.inflate(R.layout.dialog_addhost, null)
+            addListDialogBuilder.setView(dialogView)
+
+            val hostName = dialogView.findViewById<EditText>(R.id.hostNameEdit)
+            val hostUri = dialogView.findViewById<EditText>(R.id.hostURIEdit)
+            if (hostnameField.text.isNotEmpty()) hostUri.text = hostnameField.text
+
+            addListDialogBuilder.setPositiveButton(requireContext().getString(R.string.add)) { dialog, _ ->
+                if (hostName.text.isNotEmpty() && hostUri.text.isNotEmpty()) {
+                    hostName.text.toString()
+                    hostUri.text.toString().lowercase()
+
+                    savedAddresses.add(MTRAddress(hostName.text.toString(), hostUri.text.toString()))
+                    val json = gson.toJson(savedAddresses)
+                    val filePath = File(requireContext().applicationContext.filesDir, "hosts.json")
+                    FileOutputStream(filePath).use { outputStream ->
+                        OutputStreamWriter(outputStream).use { writer ->
+                            writer.write(json)
+                        }
+                    }
+
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(requireContext(), requireContext().getString(R.string.fields_required), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            addListDialogBuilder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            // Crear y mostrar el AlertDialog
+            val addToListDialog = addListDialogBuilder.create()
+            addToListDialog.show()
+        }
+
+        listButton.setOnClickListener {
+            if (savedAddresses.isNotEmpty()) {
+                val adapter = AdressesListAdapter(requireContext(), savedAddresses, this)
+                val listView = ListView(requireContext())
+                listView.adapter = adapter
+
+                listButtonAlertDialog = AlertDialog.Builder(requireContext())
+                    .setTitle(requireContext().getString(R.string.choose_address))
+                    .setView(listView)
+                    .create()
+
+                listView.setOnItemClickListener { _, _, position, _ ->
+                    onClick(savedAddresses[position])
+                }
+
+                listButtonAlertDialog.show()
+            } else {
+                Toast.makeText(requireContext(), requireContext().getText(R.string.no_hosts), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         //Add the behavior to the "stuff"
         connectToHostButton.setOnClickListener {
             lifecycleScope.launch {
@@ -71,13 +143,13 @@ class ConnectionFragment : Fragment() {
 
         disconnectHostButton.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Disconnect")
-            builder.setMessage("Are you sure you want to disconnect from the server?")
-            builder.setPositiveButton(android.R.string.yes) { _, _ ->
+            builder.setTitle(requireContext().getString(R.string.connection))
+            builder.setMessage(requireContext().getString(R.string.disconnect_dialogue))
+            builder.setPositiveButton(requireContext().getString(R.string.yes)) { _, _ ->
                 ProcessPhoenix.triggerRebirth(requireContext());
             }
 
-            builder.setNegativeButton(android.R.string.no) { dialog, _ ->
+            builder.setNegativeButton(requireContext().getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -121,6 +193,9 @@ class ConnectionFragment : Fragment() {
         GLOBAL = null
         loading.visibility = View.VISIBLE
         hostnameField.isEnabled = false
+        connectToHostButton.isEnabled = false
+        addListButton.isEnabled = false
+        listButton.isEnabled = false
 
         RetrofitSingleton.HOST = if (!URI.startsWith("http://", true) && !URI.startsWith("https://", true)) { "http://$URI" } else URI
         Log.d("MTR API", "Data load started for ${RetrofitSingleton.HOST}…")
@@ -142,10 +217,14 @@ class ConnectionFragment : Fragment() {
 
         loading.visibility = View.GONE
         hostnameField.isEnabled = true
+        connectToHostButton.isEnabled = true
+        addListButton.isEnabled = true
+        listButton.isEnabled = true
         Log.d("MTR API", "Data load finished!")
     }
 
     private fun showMenu() {
+        hostnameTextView.text = requireContext().getString(R.string.fragment_connection_hostname, RetrofitSingleton.HOST)
         connectedDiv.visibility = View.VISIBLE
         disconnectedDiv.visibility = View.GONE
         navigation.enableAll()
@@ -165,5 +244,10 @@ class ConnectionFragment : Fragment() {
 
     private fun BottomNavigationView.disableAll(){
         this.menu.forEach { it.isEnabled = false }
+    }
+
+    override fun onClick(address: MTRAddress) {
+        hostnameField.setText(address.uri)
+        listButtonAlertDialog.dismiss()
     }
 }

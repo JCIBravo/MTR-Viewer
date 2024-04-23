@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Visor MTR</string>
+    <string name="title_home">Inicio</string>
+    <string name="routes">Rutas</string>
+    <string name="timetable">Horarios</string>
+    <string name="connection">Conexión</string>
+    <string name="fragment_connection_hostname"><b>Host:</b>\n%1$s</string>
+    <string name="home_tab_status_loading">Cargando…</string>
+    <string name="home_tab_status_success">Datos cargados.</string>
+    <string name="home_tab_status_error">Error en la carga de datos.</string>
+    <string name="fragment_main_button_connect">Conectar al host</string>
+    <string name="fragment_main_edittext_hint">Introducir dirección:</string>
+    <string name="fragment_station_last_updated"><b>Última vez actualizado:</b>\n%1$s</string>
+    <string name="fragment_station_platform">Andén %1$s</string>
+    <string name="fragment_route_list_dimension">Dimensión num. %1$d</string>
+    <string name="fragment_station_loading_failed">Error en la carga de horarios. Pruebelo después.</string>
+    <string name="item_no_departures_title">No hay próximas salidas.</string>
+    <string name="item_no_departures_description">Pruebalo otra vez o busca en otra estación más cercana a esta.</string>
+    <string name="item_no_internet_title">Error de conexión</string>
+    <string name="item_no_internet_description">Asegurate de que estes conectado a internet y que el servidor esté activo al momento de la solicitud y prueba otra vez</string>
+    <string name="increment_dimension_error">No se puede incrementar. Ya en su máximo</string>
+    <string name="decrement_dimension_error">No se puede descender. Ya en su mínimo</string>
+    <string name="popup_data_error_title">Error obteniendo los datos</string>
+    <string name="popup_data_error_description">Error obteniendo los datos. Detalles:\n</string>
+    <string name="popup_data_error_button">Cerrar aplicación</string>
+    <string name="fragment_timetable_select">Selecciona una estación:</string>
+    <string name="fragment_timetable_select_spinner">- SELECCIONAR -</string>
+    <string name="notconnected">- NO CONECTADO -</string>
+    <string name="no_destination">Sin destino.</string>
+    <string name="now">Ahora</string>
+    <string name="minutes_left">%1$d min.</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="disconnect_dialogue">¿Estás seguro de querer desconectarte del servidor?</string>
+    <string name="add">Añadir</string>
+    <string name="fields_required">Se requiere tanto un nombre como la dirección URL del servidor!</string>
+    <string name="no_hosts">No tienes ningun host añadido. Añade uno para acceder a esto.</string>
+    <string name="choose_address">Escoge una dirección:</string>
+</resources>

@@ -16,8 +16,7 @@
         android:indeterminate="true"
         android:indeterminateTint="@color/red_mtr"
         android:indeterminateTintMode="src_atop"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:visibility="gone" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -37,22 +36,49 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3">
+            app:layout_constraintVertical_bias="0.3"
+            tools:visibility="visible">
 
-            <EditText
-                android:id="@+id/hostnameEditText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:ems="10"
-                android:hint="@string/fragment_main_edittext_hint"
-                android:inputType="text" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/hostnameEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/fragment_main_edittext_hint"
+                    android:inputType="textUri" />
+
+                <ImageButton
+                    android:id="@+id/addBtn"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/very_light_green_mtr"
+                    android:src="@drawable/add" />
+
+                <ImageButton
+                    android:id="@+id/listBtn"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/very_light_green_mtr"
+                    android:src="@drawable/list" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/hostnameConnectBtn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/fragment_main_button_connect"
                 android:textStyle="bold|italic" />
         </LinearLayout>
@@ -69,8 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/hostnameTextView"

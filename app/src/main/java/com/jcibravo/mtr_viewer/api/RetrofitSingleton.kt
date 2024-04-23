@@ -7,8 +7,9 @@ object RetrofitSingleton {
     var isConnectedToHost = false
     var HOST = ""
     val api : ApiService by lazy {
+        val hostFinal = HOST
         Retrofit.Builder()
-            .baseUrl(HOST)
+            .baseUrl(hostFinal)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
